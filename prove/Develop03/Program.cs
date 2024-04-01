@@ -6,7 +6,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Create an array of Scripture objects
         var scriptures = new Scripture[]
         {
             new Scripture("John 3:16", "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."),
@@ -17,15 +16,12 @@ class Program
 
         Random rand = new Random();
 
-        // Randomly choose a scripture
         var currentScripture = scriptures[rand.Next(scriptures.Length)];
 
         do
         {
-            // Display the complete scripture
             DisplayScripture(currentScripture);
 
-            // Prompt the user to press enter or type quit
             Console.WriteLine("Press Enter to reveal a word or type 'quit' to exit:");
             string input = Console.ReadLine();
 
