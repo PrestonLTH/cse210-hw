@@ -9,19 +9,19 @@ class Program
         // Create an array of Scripture objects
         var scriptures = new Scripture[]
         {
-            new Scripture("3 Nephi 115:9", "Behold, I am the law, and the light. Look unto me, and endure to the end, and ye shall live; for unto him that endureth to the end will I give eternal life."),
-            new Scripture("2 Nephi 1:23", "Awake, my sons; put on the armor of righteousness. Shake off the chains with which ye are bound, and come forth out of obscurity, and arise from the dust."),
-            new Scripture("Psalm 34:13-15", "Keep they tongue from evil, and thy lips from speaking guile. Depart from evil, and do good; seek peace and pursue it. The eyes of the Lord are upon the righteous, and his ears are open unto their cry."),
-            new Scripture("Matthew 11:6", "And blessed is he, whosoever shall not be offended in me."),
+            new Scripture("John 3:16", "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."),
+            new Scripture("Matthew 6:33", "But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you."),
+            new Scripture("Psalm 23:1", "The Lord is my shepherd; I shall not want."),
+            new Scripture("Proverbs 12:24", "The hand of the diligent shall bear rule: but the slothful shall be under tribute."),
         };
 
         Random rand = new Random();
 
+        // Randomly choose a scripture
+        var currentScripture = scriptures[rand.Next(scriptures.Length)];
+
         do
         {
-            // Randomly choose a scripture
-            var currentScripture = scriptures[rand.Next(scriptures.Length)];
-
             // Display the complete scripture
             DisplayScripture(currentScripture);
 
@@ -33,7 +33,7 @@ class Program
                 return;
 
             HideRandomWord(currentScripture);
-        } while (true);
+        } while (!currentScripture.AllWordsHidden());
     }
 
     static void DisplayScripture(Scripture scripture)
@@ -127,6 +127,5 @@ class Word
     public void Hide()
     {
         hidden = true;
-    
     }
 }
