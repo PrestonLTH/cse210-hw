@@ -48,6 +48,7 @@ public class EternalGoal : Goal
     }
 }
 
+// Checklist goal class
 public class ChecklistGoal : Goal
 {
     private int targetCount;
@@ -60,22 +61,31 @@ public class ChecklistGoal : Goal
         currentCount = 0;
     }
 
+    // Override CompleteGoal method to handle checklist completion and bonus points
     public override int CompleteGoal()
     {
         currentCount++;
         if (currentCount >= targetCount)
         {
             IsComplete = true;
-            return Value + 500;
+            return Value + 500; // Bonus points
         }
         return Value;
     }
 
+    // Override GetStatus method to display checklist completion status
     public override string GetStatus()
     {
         return IsComplete ? "[X] " + Name + " (Completed " + currentCount + "/" + targetCount + " times)" : "[ ] " + Name + " (Completed " + currentCount + "/" + targetCount + " times)";
     }
+
+    // Method to increment completion count
+    public void IncrementCompletionCount()
+    {
+        currentCount++;
+    }
 }
+
 
 public class EternalQuestManager
 {
@@ -93,13 +103,39 @@ public class EternalQuestManager
         goals.Add(goal);
     }
 
-    public void RecordEvent(int index)
+// Method to record an event and update the score
+public void RecordEvent(int index)
+{
+    if (index >= 0 && index < goals.Count)
     {
-        if (index >= 0 && index < goals.Count)
+        Goal goal = goals[index];
+        if (goal is ChecklistGoal)
         {
-            score += goals[index].CompleteGoal();
+            ChecklistGoal checklistGoal = (ChecklistGoal)goal;
+            if (!checklistGoal.IsComplete)
+            {
+                score += checklistGoal.CompleteGoal(); // Update completion count and score
+                if (checklistGoal.IsComplete)
+                {
+                    Console.WriteLine("Congratulations! Goal completed.");
+                }
+                else
+                {
+                    // Increment completion count for checklist goal
+                    checklistGoal.IncrementCompletionCount();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Goal already completed.");
+            }
+        }
+        else
+        {
+            score += goal.CompleteGoal();
         }
     }
+}
 
     public void DisplayGoals()
     {
