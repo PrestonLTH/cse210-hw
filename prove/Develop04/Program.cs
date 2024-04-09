@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Collections.Generic;
 
-class Program
+class PT_Program
 {
     static void Main(string[] args)
     {
@@ -18,21 +18,21 @@ class Program
         {
             case "1":
                 Console.Write("Enter the duration of the activity in seconds: ");
-                int breathingDuration = int.Parse(Console.ReadLine());
-                BreathingActivity breathingActivity = new BreathingActivity(breathingDuration);
-                breathingActivity.Start();
+                int PT_breathingDuration = int.Parse(Console.ReadLine());
+                PT_BreathingActivity PT_breathingActivity = new PT_BreathingActivity(PT_breathingDuration);
+                PT_breathingActivity.Start();
                 break;
             case "2":
                 Console.Write("Enter the duration of the activity in seconds: ");
-                int reflectionDuration = int.Parse(Console.ReadLine());
-                ReflectionActivity reflectionActivity = new ReflectionActivity(reflectionDuration);
-                reflectionActivity.Start();
+                int PT_reflectionDuration = int.Parse(Console.ReadLine());
+                PT_ReflectionActivity PT_reflectionActivity = new PT_ReflectionActivity(PT_reflectionDuration);
+                PT_reflectionActivity.Start();
                 break;
             case "3":
                 Console.Write("Enter the duration of the activity in seconds: ");
-                int listingDuration = int.Parse(Console.ReadLine());
-                ListingActivity listingActivity = new ListingActivity(listingDuration);
-                listingActivity.Start();
+                int PT_listingDuration = int.Parse(Console.ReadLine());
+                PT_ListingActivity PT_listingActivity = new PT_ListingActivity(PT_listingDuration);
+                PT_listingActivity.Start();
                 break;
             default:
                 Console.WriteLine("Invalid choice. Exiting...");
@@ -41,13 +41,13 @@ class Program
     }
 }
 
-class Activity
+class PT_Activity
 {
-    protected int duration;
+    protected int PT_duration;
 
-    public Activity(int duration)
+    public PT_Activity(int duration)
     {
-        this.duration = duration;
+        this.PT_duration = duration;
     }
 
     public virtual void Start()
@@ -65,7 +65,7 @@ class Activity
     }
 }
 
-class Spinner
+class PT_Spinner
 {
     public static void Show()
     {
@@ -73,9 +73,9 @@ class Spinner
     }
 }
 
-class BreathingActivity : Activity
+class PT_BreathingActivity : PT_Activity
 {
-    public BreathingActivity(int duration) : base(duration)
+    public PT_BreathingActivity(int duration) : base(duration)
     {
     }
 
@@ -91,23 +91,23 @@ class BreathingActivity : Activity
     private void BreathingCycle()
     {
         DateTime startTime = DateTime.Now;
-        while (DateTime.Now - startTime < TimeSpan.FromSeconds(duration))
+        while (DateTime.Now - startTime < TimeSpan.FromSeconds(PT_duration))
         {
             Console.WriteLine("Breathe in...");
-            Spinner.Show();
+            PT_Spinner.Show();
             Thread.Sleep(3000);
             Console.WriteLine("Breathe out...");
-            Spinner.Show();
+            PT_Spinner.Show();
             Thread.Sleep(3000);
         }
 
-        End("Breathing", duration);
+        End("Breathing", PT_duration);
     }
 }
 
-class ReflectionActivity : Activity
+class PT_ReflectionActivity : PT_Activity
 {
-    private List<string> prompts = new List<string>
+    private List<string> PT_prompts = new List<string>
     {
         "Think of a time when you stood up for someone else.",
         "Think of a time when you did something really difficult.",
@@ -115,7 +115,7 @@ class ReflectionActivity : Activity
         "Think of a time when you did something truly selfless."
     };
 
-    private List<string> questions = new List<string>
+    private List<string> PT_questions = new List<string>
     {
         "Why was this experience meaningful to you?",
         "Have you ever done anything like this before?",
@@ -128,7 +128,7 @@ class ReflectionActivity : Activity
         "How can you keep this experience in mind in the future?"
     };
 
-    public ReflectionActivity(int duration) : base(duration)
+    public PT_ReflectionActivity(int duration) : base(duration)
     {
     }
 
@@ -138,7 +138,7 @@ class ReflectionActivity : Activity
         Console.WriteLine("This activity will help you reflect on times in your life when you have shown strength and resilience.");
         Console.WriteLine("This will help you recognize the power you have and how you can use it in other aspects of your life.");
         Thread.Sleep(2000);
-        string prompt = prompts[new Random().Next(prompts.Count)];
+        string prompt = PT_prompts[new Random().Next(PT_prompts.Count)];
         Console.WriteLine(prompt);
         Thread.Sleep(2000);
         ReflectionQuestions();
@@ -146,20 +146,20 @@ class ReflectionActivity : Activity
 
     private void ReflectionQuestions()
     {
-        foreach (string question in questions)
+        foreach (string question in PT_questions)
         {
             Console.WriteLine(question);
-            Spinner.Show();
+            PT_Spinner.Show();
             Thread.Sleep(3000);
         }
 
-        End("Reflection", duration);
+        End("Reflection", PT_duration);
     }
 }
 
-class ListingActivity : Activity
+class PT_ListingActivity : PT_Activity
 {
-    private List<string> prompts = new List<string>
+    private List<string> PT_prompts = new List<string>
     {
         "Who are people that you appreciate?",
         "What are personal strengths of yours?",
@@ -168,7 +168,7 @@ class ListingActivity : Activity
         "Who are some of your personal heroes?"
     };
 
-    public ListingActivity(int duration) : base(duration)
+    public PT_ListingActivity(int duration) : base(duration)
     {
     }
 
@@ -177,7 +177,7 @@ class ListingActivity : Activity
         base.Start();
         Console.WriteLine("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
         Thread.Sleep(2000);
-        string prompt = prompts[new Random().Next(prompts.Count)];
+        string prompt = PT_prompts[new Random().Next(PT_prompts.Count)];
         Console.WriteLine(prompt);
         Thread.Sleep(5000);
         Console.WriteLine("Now, start listing...");
@@ -188,7 +188,7 @@ class ListingActivity : Activity
     {
         List<string> items = new List<string>();
         DateTime startTime = DateTime.Now;
-        while (DateTime.Now - startTime < TimeSpan.FromSeconds(duration))
+        while (DateTime.Now - startTime < TimeSpan.FromSeconds(PT_duration))
         {
             Console.Write("Enter an item (or type 'done' to finish): ");
             string item = Console.ReadLine();
@@ -198,6 +198,6 @@ class ListingActivity : Activity
         }
 
         Console.WriteLine($"You listed {items.Count} items.");
-        End("Listing", duration);
+        End("Listing", PT_duration);
     }
 }
